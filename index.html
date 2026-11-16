@@ -1,0 +1,1025 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Common Shelf — a collective of independent bookshops</title>
+<meta name="description" content="Redesign concept: one storefront for a collective of independent bookshops.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Fraunces:ital,opsz,wght@0,9..144,400..700;1,9..144,400..600&family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6f0e2; --paper-2:#efe6d1; --card:#fffaf0; --line:#e1d6bd;
+  --ink:#22281f; --muted:#61685a;
+  --green:#1f4733; --green-deep:#153324; --green-soft:#dde6d3;
+  --terra:#b5502c; --mustard:#d9a441; --blush:#f1d9c7;
+  --serif:"Fraunces","Noto Serif SC","Iowan Old Style","Palatino Linotype",Georgia,"Songti SC","SimSun",serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  --hand:"Caveat","Segoe Print","Bradley Hand","Comic Sans MS",cursive;
+  --r:18px; --r-sm:10px;
+  --shadow:0 1px 2px rgba(60,45,20,.06),0 8px 24px -12px rgba(60,45,20,.22);
+  --shadow-lg:0 2px 4px rgba(60,45,20,.08),0 22px 48px -18px rgba(40,30,10,.38);
+  --gutter:16px; --max:1200px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--sans);color:var(--ink);background-color:var(--paper);line-height:1.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .36 0 0 0 0 .27 0 0 0 0 .12 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+  overflow-x:hidden;
+}
+h1,h2,h3,p{margin:0}
+h1,h2,h3{font-family:var(--serif);font-weight:560;letter-spacing:-.01em;line-height:1.12;text-wrap:balance}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer;border:0;background:none;padding:0}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--terra);outline-offset:2px;border-radius:6px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+section{scroll-margin-top:132px}
+.hand{font-family:var(--hand);font-weight:500}
+
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 24px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none;transition:transform .15s,background .15s,box-shadow .15s}
+.btn-primary{background:var(--green);color:#fdf8ea;box-shadow:0 6px 16px -8px rgba(21,51,36,.7)}
+.btn-primary:hover{background:var(--green-deep);transform:translateY(-1px)}
+.btn-ghost{border:1.5px solid var(--green);color:var(--green)}
+.btn-ghost:hover{background:var(--green-soft)}
+.link{font-weight:600;font-size:14px;color:var(--green);text-underline-offset:4px;text-decoration-thickness:1.5px;white-space:nowrap}
+.link:hover{color:var(--terra)}
+
+/* ---------- Header ---------- */
+.ribbon{background:var(--green-deep);color:#e9e2cc;font-size:12.5px;text-align:center;padding:7px var(--gutter)}
+.ribbon b{font-family:var(--hand);font-size:17px;font-weight:500;color:var(--mustard);margin-right:4px}
+header.site{position:sticky;top:0;z-index:40;background:rgba(246,240,226,.93);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.head{display:grid;grid-template-columns:1fr auto;grid-template-areas:"logo icons" "search search";gap:10px 12px;align-items:center;padding-block:10px}
+.logo{grid-area:logo;display:inline-flex;align-items:center;gap:10px;text-decoration:none;justify-self:start}
+.logo svg{width:34px;height:34px;flex:none}
+.logo span{font-family:var(--serif);font-weight:620;font-size:21px;letter-spacing:-.02em;color:var(--green-deep);line-height:1}
+.logo small{display:block;font-family:var(--hand);font-size:14px;font-weight:500;color:var(--terra);letter-spacing:0;margin-top:2px}
+.icons{grid-area:icons;display:flex;gap:4px}
+.icon-btn{position:relative;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;color:var(--green-deep)}
+.icon-btn:hover{background:var(--green-soft)}
+.icon-btn svg{width:23px;height:23px}
+.count{position:absolute;top:3px;right:1px;min-width:19px;height:19px;padding:0 5px;border-radius:999px;background:var(--terra);color:#fff;font-size:11px;font-weight:600;display:grid;place-items:center;transform:scale(0);transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.count.on{transform:scale(1)}
+.search{grid-area:search;position:relative}
+.search input{width:100%;height:48px;border-radius:999px;border:1.5px solid var(--green);background:var(--card);padding:0 44px 0 46px;font-size:15px;box-shadow:inset 0 1px 2px rgba(60,45,20,.06)}
+.search input::placeholder{color:#7d8475}
+.search input:focus{outline:none;box-shadow:0 0 0 4px rgba(31,71,51,.16)}
+.search > svg{position:absolute;left:16px;top:13px;width:22px;height:22px;color:var(--green);pointer-events:none}
+.search .clear{position:absolute;right:6px;top:6px;width:36px;height:36px;border-radius:50%;display:none;place-items:center;color:var(--muted)}
+.search .clear.on{display:grid}
+.suggest{position:absolute;left:0;right:0;top:calc(100% + 8px);background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-lg);padding:8px;display:none;max-height:min(70vh,520px);overflow:auto}
+.suggest.on{display:block}
+.suggest h4{margin:8px 10px 4px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.sg{display:flex;gap:12px;align-items:center;width:100%;text-align:left;padding:8px 10px;border-radius:12px}
+.sg:hover,.sg:focus-visible{background:var(--green-soft)}
+.sg .cover{width:34px;flex:none;border-radius:3px}
+.sg b{display:block;font-family:var(--serif);font-weight:560;font-size:15px;line-height:1.25}
+.sg small{color:var(--muted);font-size:12.5px}
+.sg .p{margin-left:auto;font-weight:600;font-size:13.5px;white-space:nowrap}
+.sg-shop i{width:34px;height:34px;border-radius:50%;background:var(--green);color:#fdf8ea;display:grid;place-items:center;font:600 15px var(--serif);flex:none}
+.sg-all{justify-content:center;font-weight:600;color:var(--green);font-size:14px;margin-top:4px;border-top:1px dashed var(--line);border-radius:0 0 12px 12px;padding-top:12px}
+.sg-none{padding:18px 12px;text-align:center;color:var(--muted);font-size:14px}
+.sg-none span{display:block;font-family:var(--hand);font-size:22px;color:var(--terra)}
+
+/* ---------- Hero ---------- */
+.hero{padding:36px 0 28px}
+.hero-grid{display:grid;gap:36px}
+.eyebrow{font-family:var(--hand);font-size:24px;color:var(--terra);display:inline-block;transform:rotate(-2deg);margin-bottom:10px}
+.hero h1{font-size:clamp(36px,9.4vw,66px);color:var(--green-deep);font-weight:540}
+.hero h1 em{font-style:italic;position:relative;text-decoration:underline wavy var(--mustard) 3px;text-underline-offset:7px}
+.hero h1 em svg{display:none;position:absolute;left:-2%;bottom:-.16em;width:104%;height:.3em;color:var(--mustard);z-index:-1}
+.hero p.lede{font-size:17px;color:#3f463a;max-width:34em;margin-top:18px}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.facts{display:flex;flex-wrap:wrap;gap:8px 22px;margin:28px 0 0;padding:0;list-style:none;font-size:13.5px;color:var(--muted)}
+.facts b{font-family:var(--serif);font-size:19px;color:var(--green-deep);margin-right:5px;font-weight:600}
+.stack{position:relative;height:300px;max-width:400px;margin:0 auto;width:100%}
+.stack .cover{position:absolute;width:44%;bottom:10px;box-shadow:var(--shadow-lg)}
+.stack .cover:nth-child(1){left:2%;transform:rotate(-9deg)}
+.stack .cover:nth-child(2){left:28%;bottom:26px;z-index:2;transform:rotate(1.5deg)}
+.stack .cover:nth-child(3){right:2%;transform:rotate(10deg)}
+.sticky-note{position:absolute;z-index:3;right:0;top:0;background:#f7e39a;padding:10px 14px 12px;font-family:var(--hand);font-size:19px;line-height:1.1;transform:rotate(5deg);box-shadow:2px 6px 14px -6px rgba(60,45,20,.5);max-width:150px;color:#3b3413}
+.sticky-note::before{content:"";position:absolute;top:-9px;left:50%;width:54px;height:18px;margin-left:-27px;background:rgba(255,255,255,.55);border:1px solid rgba(0,0,0,.04);transform:rotate(-3deg)}
+.doodle{position:absolute;left:0;top:14px;width:64px;color:var(--terra);z-index:3}
+
+/* ---------- Section headings ---------- */
+.sec{padding:36px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:18px}
+.sec-head h2{font-size:clamp(26px,5.6vw,36px);color:var(--green-deep)}
+.sec-head p{color:var(--muted);font-size:14.5px;margin-top:6px;max-width:44em}
+.kicker{font-family:var(--hand);font-size:21px;color:var(--terra);display:block;margin-bottom:2px}
+.head-tools{display:flex;align-items:center;gap:10px;flex:none}
+.pager{display:none;gap:6px}
+.pager button{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--green);color:var(--green);display:grid;place-items:center;transition:.15s}
+.pager button:hover:not(:disabled){background:var(--green);color:#fdf8ea}
+.pager button:disabled{opacity:.3;cursor:default}
+.pager svg{width:18px;height:18px}
+
+/* ---------- Carousel ---------- */
+.track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:var(--gutter);padding:6px var(--gutter) 22px;margin:0 calc(var(--gutter) * -1);scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.track::-webkit-scrollbar{display:none}
+.track > *{scroll-snap-align:start;flex:none}
+.track > .card{width:clamp(150px,43vw,196px)}
+
+/* ---------- Covers ---------- */
+.cover{--bg:#1f4733;--ac:#d9a441;--ink2:#fdf8ea;position:relative;display:flex;flex-direction:column;justify-content:space-between;aspect-ratio:2/3;width:100%;background:var(--bg);color:var(--ink2);border-radius:4px 7px 7px 4px;overflow:hidden;container-type:inline-size;padding:9% 9% 8% 12%;isolation:isolate}
+.cover::before{content:"";position:absolute;inset:0;z-index:-1}
+.cover::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.22) 0,rgba(255,255,255,.18) 3.5%,rgba(0,0,0,.1) 6%,transparent 10%),linear-gradient(120deg,rgba(255,255,255,.1),transparent 40%);pointer-events:none}
+.cv-t{font-family:var(--serif);font-weight:600;font-size:15px;font-size:11.5cqw;line-height:1.08;letter-spacing:-.01em;text-wrap:balance}
+.cv-t:lang(zh){font-size:15cqw;line-height:1.2;letter-spacing:.04em}
+.cv-a{font-size:9px;font-size:5.6cqw;letter-spacing:.09em;text-transform:uppercase;font-weight:500;opacity:.92}
+.p0::before{background:radial-gradient(circle at 50% 66%,var(--ac) 0 27%,transparent 27.6%)}
+.p1::before{background:repeating-linear-gradient(0deg,var(--ac) 0 5%,transparent 5% 10%);top:56%;bottom:20%}
+.p2::before{inset:44% 20% 18% 24%;background:var(--ac);border-radius:999px 999px 0 0}
+.p3::before{background:repeating-linear-gradient(135deg,transparent 0 7%,var(--ac) 7% 8.4%);top:50%;opacity:.8}
+.p4::before{background:radial-gradient(circle,var(--ac) 0 24%,transparent 26%) 0 0/20% 13.33%;top:48%;bottom:19%;left:12%;right:8%}
+.p5::before{background:linear-gradient(168deg,transparent 0 55%,var(--ac) 55.3% 74%,transparent 74.3%),radial-gradient(circle at 74% 44%,var(--ac) 0 9%,transparent 9.6%)}
+
+/* ---------- Product card ---------- */
+.card,.pick,.price{position:relative}
+.card{display:flex;flex-direction:column;min-width:0}
+.cover-wrap{position:relative;border-radius:var(--r);background:linear-gradient(180deg,var(--card),var(--paper-2));padding:14px 18px 16px;box-shadow:var(--shadow);transition:transform .2s,box-shadow .2s}
+.cover-wrap .cover{box-shadow:0 10px 18px -10px rgba(30,20,5,.6);transition:transform .25s}
+.card:hover .cover-wrap{box-shadow:var(--shadow-lg)}
+.card:hover .cover{transform:translateY(-4px) rotate(-1.2deg)}
+.badges{position:absolute;top:10px;left:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-start;z-index:2}
+.badge{font-size:11px;font-weight:600;letter-spacing:.03em;padding:4px 9px;border-radius:999px;line-height:1.2;white-space:nowrap}
+.b-sale{background:var(--terra);color:#fff;transform:rotate(-4deg)}
+.b-out{background:#3c3f39;color:#f1ecdd}
+.b-ed{background:var(--card);color:var(--green-deep);border:1px solid var(--line)}
+.b-lang{position:absolute;top:10px;right:10px;z-index:2;background:var(--mustard);color:#2f2507}
+.is-out .cover{filter:grayscale(.75) opacity(.7)}
+.meta{padding:12px 4px 0;display:flex;flex-direction:column;flex:1}
+.title{font-size:16.5px;line-height:1.22;font-weight:580}
+.title:lang(zh){font-size:17px;line-height:1.35}
+.gloss{font-size:12.5px;font-style:italic;color:var(--muted);margin-top:2px}
+.author{font-size:13.5px;color:#3f463a;margin-top:4px}
+.shop-tag{font-size:12px;color:var(--muted);margin-top:2px}
+.shop-tag button{color:var(--green);text-decoration:underline;text-decoration-style:dotted;text-underline-offset:3px;font-size:12px}
+.buy{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto;padding-top:10px}
+.price{font-weight:600;font-size:15px;line-height:1.2}
+.price s{color:var(--muted);font-weight:400;font-size:12.5px;margin-right:5px}
+.price .now{color:var(--terra)}
+.price .from{display:inline-block;font-size:12.5px;background:var(--green-soft);color:var(--green-deep);padding:4px 9px;border-radius:999px}
+.add{flex:none;height:40px;min-width:40px;padding:0 12px;border-radius:999px;background:var(--green);color:#fdf8ea;font-size:13px;font-weight:600;display:inline-flex;align-items:center;gap:5px;transition:.15s}
+.add svg{width:15px;height:15px}
+.add:hover:not(:disabled){background:var(--green-deep);transform:scale(1.05)}
+.add:disabled{background:transparent;color:var(--muted);border:1.5px dashed #b9b29c;cursor:not-allowed;font-weight:500}
+
+/* ---------- Staff picks ---------- */
+.picks{background:var(--green-deep);color:#f1ecdd;border-radius:28px;padding:30px 0 12px;position:relative}
+.picks .sec-head{padding:0 20px}
+.picks .sec-head h2{color:#fdf8ea}
+.picks .sec-head p{color:#b9c6b3}
+.picks .kicker{color:var(--mustard)}
+.picks .link{color:#f1ecdd}
+.picks .pager button{border-color:#8fa791;color:#f1ecdd}
+.picks .pager button:hover:not(:disabled){background:#f1ecdd;color:var(--green-deep)}
+.picks .track{margin:0;padding:8px 20px 24px;scroll-padding-left:20px;gap:18px}
+.pick{width:clamp(284px,84vw,400px);background:var(--card);color:var(--ink);border-radius:var(--r);padding:16px;display:grid;grid-template-columns:104px 1fr;gap:16px;box-shadow:0 14px 30px -18px rgba(0,0,0,.7)}
+.pick .pc{position:relative;align-self:start}
+.pick .cover{box-shadow:0 10px 18px -10px rgba(30,20,5,.6)}
+.pick .badges{top:-6px;left:-8px}
+.pick .b-lang{top:auto;bottom:-8px;right:-6px}
+.pick .body{display:flex;flex-direction:column;min-width:0}
+.note{position:relative;margin:12px 0 4px;background:#fbf1c8;padding:13px 12px 9px;transform:rotate(-1.2deg);box-shadow:1px 4px 10px -6px rgba(60,45,20,.5);background-image:repeating-linear-gradient(transparent 0 25px,rgba(31,71,51,.13) 25px 26px)}
+.pick:nth-child(even) .note{transform:rotate(1deg);background-color:#f6e2d2}
+.note::before{content:"";position:absolute;top:-8px;left:18px;width:46px;height:15px;background:rgba(255,255,255,.7);box-shadow:0 1px 2px rgba(0,0,0,.08);transform:rotate(-4deg)}
+.note-label{font-size:10px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--terra);display:block}
+.note p{font-family:var(--hand);font-size:20px;line-height:26px;color:#2b3324}
+.note .sig{display:block;font-family:var(--hand);font-size:17px;line-height:26px;color:var(--green);text-align:right}
+
+/* ---------- Bookshops ---------- */
+.shops{display:grid;grid-template-columns:1fr;gap:14px}
+.shop{position:relative;background:var(--card);border-radius:var(--r);padding:20px 20px 18px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:6px;overflow:hidden;border:1px solid rgba(225,214,189,.7)}
+.shop::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--tone)}
+.shop .sign{display:flex;align-items:center;gap:12px}
+.shop .mono{width:46px;height:46px;border-radius:50% 50% 50% 12px;background:var(--tone);color:#fdf8ea;display:grid;place-items:center;font:600 20px var(--serif);flex:none}
+.shop h3{font-size:20px}
+.shop .where{font-size:12px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+.shop .persona{font-family:var(--serif);font-style:italic;font-size:15.5px;color:#3f463a;margin:6px 0 10px;flex:1}
+.shop .foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.shop .n{font-size:12.5px;color:var(--muted)}
+.visit{height:42px;padding:0 18px;border-radius:999px;border:1.5px solid var(--green);color:var(--green);font-weight:600;font-size:14px;display:inline-flex;align-items:center;gap:6px;transition:.15s}
+.visit:hover{background:var(--green);color:#fdf8ea}
+.visit svg{width:15px;height:15px}
+
+/* ---------- Children's ---------- */
+.kids{background:#f3dfb4;border-radius:28px;padding:30px 20px 12px;position:relative;overflow:hidden}
+.kids::before{content:"";position:absolute;right:-50px;top:-50px;width:190px;height:190px;border-radius:50%;background:#eccb84;opacity:.7}
+.kids > *{position:relative}
+.kids .kicker{color:var(--terra)}
+.pickers{display:grid;gap:14px;margin-bottom:8px}
+.picker-label{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:#6b5a2c;margin-bottom:7px}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chips.scroll{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -20px;padding:2px 20px}
+.chips.scroll::-webkit-scrollbar{display:none}
+.chip{flex:none;min-height:42px;padding:6px 16px;border-radius:999px;background:var(--card);border:1.5px solid transparent;font-size:14px;font-weight:500;display:inline-flex;align-items:center;gap:7px;box-shadow:0 1px 2px rgba(60,45,20,.1);transition:.15s;text-align:left;line-height:1.15}
+.chip small{font-size:11.5px;color:var(--muted);font-weight:400}
+.chip:hover{border-color:var(--green)}
+.chip[aria-pressed="true"]{background:var(--green);color:#fdf8ea;border-color:var(--green)}
+.chip[aria-pressed="true"] small{color:#c5d3bd}
+.kids .track{margin:8px -20px 0;padding:10px 20px 22px;scroll-padding-left:20px}
+.kids .cover-wrap{background:linear-gradient(180deg,#fffaf0,#fbeecd)}
+.kids-foot{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13.5px;color:#6b5a2c;padding-bottom:14px}
+.empty{padding:26px 12px;text-align:center;color:var(--muted);width:100%}
+.empty span{display:block;font-family:var(--hand);font-size:26px;color:var(--terra);margin-bottom:2px}
+
+/* ---------- Genres + shelf ---------- */
+.genres{display:grid;gap:22px}
+.g-group h3{font-size:19px;font-style:italic;font-weight:500;color:var(--green);display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.g-group h3::after{content:"";flex:1;height:0;border-top:1.5px dashed #c9bd9f}
+.g-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.g-tile{background:var(--card);border:1.5px solid transparent;border-radius:14px;padding:13px 14px;text-align:left;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:2px;min-height:68px;transition:.15s;position:relative}
+.g-tile b{font-family:var(--serif);font-weight:560;font-size:16.5px;line-height:1.2}
+.g-tile small{font-size:12px;color:var(--muted)}
+.g-tile:hover{border-color:var(--green);transform:translateY(-2px)}
+.g-tile[aria-pressed="true"]{background:var(--green);color:#fdf8ea;border-color:var(--green)}
+.g-tile[aria-pressed="true"] small{color:#c5d3bd}
+.shelf{margin-top:34px;padding-top:26px;border-top:1.5px dashed #c9bd9f;scroll-margin-top:132px}
+.shelf-bar{display:flex;flex-direction:column;gap:12px;margin-bottom:18px}
+.shelf-bar h3{font-size:24px;color:var(--green-deep)}
+.shelf-bar h3 small{font-family:var(--sans);font-size:13.5px;font-weight:400;color:var(--muted);letter-spacing:0;margin-left:6px}
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.tools .chip{min-height:38px;padding:4px 14px;font-size:13.5px}
+.sort{height:38px;border-radius:999px;border:1.5px solid var(--line);background:var(--card);padding:0 12px;font-size:13.5px;margin-left:auto}
+.active{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.active:empty{display:none}
+.tag{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 6px 0 13px;border-radius:999px;background:var(--green-soft);color:var(--green-deep);font-size:13px;font-weight:500}
+.tag button{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:16px;line-height:1}
+.tag button:hover{background:var(--green);color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 14px}
+
+/* ---------- Newsletter ---------- */
+.letter{background:var(--card);border-radius:28px;box-shadow:var(--shadow);padding:30px 22px;position:relative;overflow:hidden;border:1px solid var(--line)}
+.letter::before{content:"";position:absolute;inset:0 0 auto 0;height:8px;background:repeating-linear-gradient(135deg,var(--terra) 0 14px,var(--card) 14px 28px,var(--green) 28px 42px,var(--card) 42px 56px)}
+.letter-grid{display:grid;gap:24px}
+.letter h2{font-size:clamp(26px,5.6vw,36px);color:var(--green-deep)}
+.letter .lede{color:#3f463a;margin-top:10px;font-size:15.5px}
+.stamp{position:absolute;right:18px;top:26px;width:62px;height:74px;border:2px dashed var(--terra);border-radius:6px;display:grid;place-items:center;transform:rotate(6deg);color:var(--terra);font-family:var(--hand);font-size:15px;line-height:1;text-align:center;opacity:.85}
+.opts{display:grid;gap:8px;margin:0 0 14px;padding:0;border:0}
+.opt{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--paper);border:1.5px solid transparent;cursor:pointer}
+.opt:has(input:checked){border-color:var(--green);background:var(--green-soft)}
+.opt input{width:20px;height:20px;accent-color:var(--green);margin-top:2px;flex:none}
+.opt b{display:block;font-size:14.5px}
+.opt small{color:var(--muted);font-size:13px}
+.field{display:flex;flex-direction:column;gap:10px}
+.field input{height:50px;border-radius:999px;border:1.5px solid var(--green);background:#fff;padding:0 20px;font-size:15px;width:100%;min-width:0}
+.field input:focus{outline:none;box-shadow:0 0 0 4px rgba(31,71,51,.16)}
+.form-msg{font-size:13.5px;margin-top:10px;min-height:20px}
+.form-msg.err{color:var(--terra)}
+.form-msg.ok{font-family:var(--hand);font-size:22px;color:var(--green)}
+
+/* ---------- Footer ---------- */
+footer{background:var(--green-deep);color:#d6dccb;margin-top:40px;padding:40px 0 28px;font-size:14px}
+.foot-grid{display:grid;gap:30px}
+footer h3{font-size:18px;color:#fdf8ea;margin-bottom:12px}
+footer ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+footer a{color:#d6dccb;text-underline-offset:3px;text-decoration-color:rgba(214,220,203,.4)}
+footer a:hover{color:var(--mustard)}
+details{border-bottom:1px solid rgba(214,220,203,.2);padding:9px 0}
+summary{cursor:pointer;font-weight:500;color:#f1ecdd;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:18px;line-height:1;color:var(--mustard)}
+details[open] summary::after{content:"–"}
+details p{margin-top:8px;color:#b9c6b3;font-size:13.5px}
+.fine{margin-top:34px;padding-top:18px;border-top:1px solid rgba(214,220,203,.2);display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:space-between;font-size:12.5px;color:#9fb09b}
+.fine .hand{font-size:18px;color:var(--mustard)}
+
+/* ---------- Cart drawer ---------- */
+.scrim{position:fixed;inset:0;background:rgba(21,35,24,.45);z-index:50;opacity:0;pointer-events:none;transition:opacity .25s}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;bottom:0;width:min(430px,100%);z-index:60;background:var(--paper);box-shadow:-20px 0 50px -20px rgba(0,0,0,.4);display:flex;flex-direction:column;transform:translateX(102%);transition:transform .3s cubic-bezier(.2,.8,.2,1);visibility:hidden}
+.drawer.on{transform:none;visibility:visible}
+.d-head{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--line)}
+.d-head h2{font-size:24px;color:var(--green-deep)}
+.d-head h2 small{font-family:var(--sans);font-size:13.5px;color:var(--muted);font-weight:400;margin-left:6px;letter-spacing:0}
+.d-body{flex:1;overflow:auto;padding:8px 20px 20px}
+.d-shop{font-size:11.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:18px 0 8px;display:flex;gap:8px;align-items:center}
+.d-shop::after{content:"";flex:1;border-top:1px dashed #c9bd9f}
+.line{display:grid;grid-template-columns:56px 1fr auto;gap:12px;align-items:start;padding:10px 0}
+.line b{font-family:var(--serif);font-weight:560;font-size:15.5px;line-height:1.25;display:block}
+.line small{color:var(--muted);font-size:12.5px}
+.line .lp{font-weight:600;font-size:14.5px;text-align:right}
+.qty{display:inline-flex;align-items:center;margin-top:8px;border:1.5px solid var(--line);border-radius:999px;background:var(--card)}
+.qty button{width:32px;height:32px;display:grid;place-items:center;font-size:17px;border-radius:50%}
+.qty button:hover{background:var(--green-soft)}
+.qty span{min-width:22px;text-align:center;font-size:14px;font-weight:600}
+.rm{font-size:12.5px;color:var(--muted);text-decoration:underline;margin-left:10px}
+.rm:hover{color:var(--terra)}
+.d-empty{text-align:center;padding:60px 20px;color:var(--muted)}
+.d-empty span{display:block;font-family:var(--hand);font-size:30px;color:var(--terra);margin-bottom:4px}
+.d-foot{border-top:1px solid var(--line);padding:16px 20px 20px;background:var(--card)}
+.ship{font-size:13px;color:var(--muted);margin-bottom:12px}
+.bar{height:6px;border-radius:99px;background:var(--paper-2);margin-top:6px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--green);border-radius:99px;transition:width .35s}
+.sub{display:flex;justify-content:space-between;align-items:baseline;font-size:15px;margin-bottom:12px}
+.sub b{font-family:var(--serif);font-size:24px;color:var(--green-deep)}
+.d-foot .btn{width:100%}
+.d-foot .tiny{font-size:12px;color:var(--muted);text-align:center;margin-top:10px}
+
+/* ---------- Toast ---------- */
+.toast{position:fixed;left:50%;bottom:20px;z-index:70;transform:translate(-50%,160%);background:var(--green-deep);color:#fdf8ea;border-radius:16px;padding:10px 10px 10px 14px;display:flex;align-items:center;gap:12px;box-shadow:var(--shadow-lg);width:max-content;max-width:calc(100vw - 32px);transition:transform .35s cubic-bezier(.3,1.4,.5,1);font-size:14px}
+.toast.on{transform:translate(-50%,0)}
+.toast .tick{width:28px;height:28px;border-radius:50%;background:var(--mustard);color:var(--green-deep);display:grid;place-items:center;flex:none}
+.toast .tick svg{width:16px;height:16px}
+.toast .tx{min-width:0}
+.toast .tx b{display:block;font-weight:600}
+.toast .tx span{display:block;color:#b9c6b3;font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.toast button{flex:none;height:36px;padding:0 14px;border-radius:999px;background:rgba(255,255,255,.14);font-weight:600;font-size:13px}
+.toast button:hover{background:rgba(255,255,255,.26)}
+
+/* ---------- Larger screens ---------- */
+@media (min-width:560px){
+  .shops{grid-template-columns:repeat(2,1fr)}
+  .g-grid{grid-template-columns:repeat(3,1fr)}
+  .grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .field{flex-direction:row}
+  .field .btn{flex:none}
+}
+@media (min-width:760px){
+  :root{--gutter:28px}
+  section,.shelf{scroll-margin-top:92px}
+  .head{grid-template-columns:auto minmax(0,1fr) auto;grid-template-areas:"logo search icons";gap:24px;padding-block:14px}
+  .search{max-width:620px;width:100%;justify-self:center}
+  .hero{padding:64px 0 44px}
+  .hero h1 em{white-space:nowrap;text-decoration:none}
+  .hero h1 em svg{display:block}
+  .hero-grid{grid-template-columns:1.15fr .85fr;align-items:center;gap:48px}
+  .stack{height:400px;max-width:460px}
+  .sec{padding:48px 0}
+  .pager{display:flex}
+  .track > .card{width:196px}
+  .picks{padding-top:40px}
+  .picks .sec-head{padding:0 36px}
+  .picks .track{padding-inline:36px;scroll-padding-left:36px}
+  .kids{padding:40px 36px 16px}
+  .kids .track{margin-inline:-36px;padding-inline:36px;scroll-padding-left:36px}
+  .chips.scroll{flex-wrap:wrap;margin:0;padding:2px 0}
+  .pickers{grid-template-columns:1.4fr 1fr;gap:28px}
+  .genres{grid-template-columns:1fr 1fr;gap:36px}
+  .g-grid{grid-template-columns:repeat(2,1fr)}
+  .shelf-bar{flex-direction:row;align-items:center;justify-content:space-between}
+  .grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:34px 22px}
+  .letter{padding:48px}
+  .letter-grid{grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .stamp{right:40px;top:40px}
+  .foot-grid{grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
+}
+@media (min-width:1000px){
+  .shops{grid-template-columns:repeat(4,1fr)}
+  .grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .g-grid{grid-template-columns:repeat(4,1fr)}
+  .genres{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<div class="ribbon"><b>psst —</b> free islandwide delivery on orders over S$60, or collect from any partner bookshop.</div>
+
+<header class="site">
+  <div class="wrap head">
+    <a class="logo" href="#top" aria-label="Common Shelf, home">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="5" y="8" width="7" height="24" rx="1.5" fill="#1f4733"/><rect x="14" y="5" width="8" height="27" rx="1.5" fill="#b5502c"/><path d="M25.5 10.2l6.6-2 6 21.6-6.6 2z" fill="#d9a441"/><path d="M3 34.5c6-1.6 12 1.2 18 0s11-1.6 17 0" stroke="#153324" stroke-width="2" stroke-linecap="round"/></svg>
+      <span>Common Shelf<small>indie bookshops, together</small></span>
+    </a>
+    <div class="search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.8-3.8"/></svg>
+      <label class="sr" for="q">Search titles, authors and bookshops</label>
+      <input id="q" type="search" autocomplete="off" placeholder="Search 40,000+ titles, authors, bookshops…" aria-controls="suggest" aria-expanded="false">
+      <button class="clear" id="qClear" aria-label="Clear search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <div class="suggest" id="suggest"></div>
+    </div>
+    <div class="icons">
+      <button class="icon-btn" aria-label="Log in" id="loginBtn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20c1-3.8 4-5.6 7.500-5.600s6.500 1.800 7.500 5.600"/></svg></button>
+      <button class="icon-btn" aria-label="Open cart" id="cartBtn" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.500 8.500h13l-1 11.500h-11z"/><path d="M9 8.500V7a3 3 0 016 0v1.500"/></svg><span class="count" id="count" aria-hidden="true">0</span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">eight bookshops, one shelf</span>
+      <h1>Buy a book, keep a <em>neighbourhood bookshop<svg viewBox="0 0 300 20" preserveAspectRatio="none" fill="none" aria-hidden="true"><path d="M3 12c40-9 70 7 110-1s70-8 105 0 50 3 79-3" stroke="currentColor" stroke-width="7" stroke-linecap="round"/></svg></em> open.</h1>
+      <p class="lede">Common Shelf is a storefront run by independent bookshops, for the people who love them. Every order is packed by a real bookseller, and every dollar goes back to the shop that stocked it.</p>
+      <div class="cta">
+        <a class="btn btn-primary" href="#shelf" data-reset>Browse books</a>
+        <a class="btn btn-ghost" href="#bookshops">Meet the bookshops</a>
+      </div>
+      <ul class="facts">
+        <li><b>8</b>independent bookshops</li>
+        <li><b>40,000+</b>titles</li>
+        <li><b>3</b>languages on the shelf</li>
+      </ul>
+    </div>
+    <div class="stack" id="heroStack" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- HIGHLIGHTS -->
+<section class="sec" id="new">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">fresh off the truck</span><h2>New Releases</h2></div>
+      <div class="head-tools"><a class="link" href="#shelf" data-tag="new">View all</a><div class="pager" data-for="t-new"></div></div>
+    </div>
+    <div class="track" id="t-new" tabindex="0" aria-label="New releases"></div>
+  </div>
+</section>
+
+<section class="sec" id="staff" style="padding-top:8px">
+  <div class="wrap">
+    <div class="picks">
+      <div class="sec-head">
+        <div><span class="kicker">pressed into your hands</span><h2>Recommended by Booksellers</h2><p>Staff picks, with the notes we'd tuck inside the cover if you came by the shop.</p></div>
+        <div class="head-tools"><a class="link" href="#shelf" data-tag="staff">View all</a><div class="pager" data-for="t-staff"></div></div>
+      </div>
+      <div class="track" id="t-staff" tabindex="0" aria-label="Staff picks"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="top-rated">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">readers keep coming back for</span><h2>Top Rated</h2></div>
+      <div class="head-tools"><a class="link" href="#shelf" data-tag="top">View all</a><div class="pager" data-for="t-top"></div></div>
+    </div>
+    <div class="track" id="t-top" tabindex="0" aria-label="Top rated"></div>
+  </div>
+</section>
+
+<section class="sec" id="local" style="padding-top:8px">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">written down the road</span><h2>Local Authors</h2></div>
+      <div class="head-tools"><a class="link" href="#shelf" data-tag="local">View all</a><div class="pager" data-for="t-local"></div></div>
+    </div>
+    <div class="track" id="t-local" tabindex="0" aria-label="Local authors"></div>
+  </div>
+</section>
+
+<!-- BOOKSHOPS -->
+<section class="sec" id="bookshops">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">every shop has a personality</span><h2>Shop by Bookshop</h2><p>Each shelf is curated by the shop itself. Browse one the way you'd wander in off the street.</p></div>
+    </div>
+    <div class="shops" id="shops"></div>
+  </div>
+</section>
+
+<!-- CHILDREN -->
+<section class="sec" id="children">
+  <div class="wrap">
+    <div class="kids">
+      <div class="sec-head">
+        <div><span class="kicker">for small (and not-so-small) readers</span><h2>Children's Books</h2><p>Pick an age, a format, or both.</p></div>
+        <div class="head-tools"><div class="pager" data-for="t-kids"></div></div>
+      </div>
+      <div class="pickers">
+        <div><div class="picker-label" id="lblAge">By age &amp; level</div><div class="chips scroll" id="ageChips" role="group" aria-labelledby="lblAge"></div></div>
+        <div><div class="picker-label" id="lblFmt">By format</div><div class="chips scroll" id="fmtChips" role="group" aria-labelledby="lblFmt"></div></div>
+      </div>
+      <div class="track" id="t-kids" tabindex="0" aria-label="Children's books"></div>
+      <div class="kids-foot"><span id="kidsCount" aria-live="polite"></span><a class="link" href="#shelf" id="kidsAll">See these on the shelf</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- GENRES + SHELF -->
+<section class="sec" id="genres">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><span class="kicker">know what you're in the mood for?</span><h2>Browse by Genre</h2></div>
+    </div>
+    <div class="genres" id="genreGroups"></div>
+
+    <div class="shelf" id="shelf">
+      <div class="shelf-bar">
+        <h3><span id="shelfTitle">The whole shelf</span><small id="shelfCount" aria-live="polite"></small></h3>
+        <div class="tools">
+          <div class="chips" id="langChips" role="group" aria-label="Language"></div>
+          <label class="sr" for="sort">Sort</label>
+          <select class="sort" id="sort">
+            <option value="featured">Featured</option>
+            <option value="low">Price: low to high</option>
+            <option value="high">Price: high to low</option>
+            <option value="az">Title A–Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="active" id="active" style="margin-bottom:18px"></div>
+      <div class="grid" id="grid"></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="sec" id="newsletter">
+  <div class="wrap">
+    <div class="letter">
+      <div class="stamp" aria-hidden="true">post<br>from the<br>shop</div>
+      <div class="letter-grid">
+        <div>
+          <span class="kicker">no algorithms, just booksellers</span>
+          <h2>Letters from behind the counter</h2>
+          <p class="lede">A slow, good email twice a month. Choose what lands in your inbox, and change your mind any time.</p>
+        </div>
+        <form id="nl" novalidate>
+          <fieldset class="opts">
+            <legend class="sr">What would you like to receive?</legend>
+            <label class="opt"><input type="checkbox" name="lists" checked><span><b>Reading lists</b><small>Themed stacks for rainy weekends and long flights.</small></span></label>
+            <label class="opt"><input type="checkbox" name="letters" checked><span><b>Bookseller letters</b><small>One shop, one letter, what they're loving right now.</small></span></label>
+            <label class="opt"><input type="checkbox" name="events"><span><b>Event invites</b><small>Launches, readings and story time at the shops.</small></span></label>
+          </fieldset>
+          <div class="field">
+            <label class="sr" for="email">Email address</label>
+            <input id="email" type="email" placeholder="you@example.com" autocomplete="email" required>
+            <button class="btn btn-primary" type="submit">Sign me up</button>
+          </div>
+          <p class="form-msg" id="nlMsg" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div id="faqs">
+        <h3>FAQs</h3>
+        <details><summary>Who actually sends my books?</summary><p>The bookshop that stocks them. An order from two shops arrives as two parcels, each packed by that shop.</p></details>
+        <details><summary>Can I collect in store?</summary><p>Yes. Choose “Collect from bookshop” at checkout and we'll email you when it's ready, usually within two days.</p></details>
+        <details><summary>A title is sold out. Now what?</summary><p>Ask the bookseller. Most shops can special-order a title in one to three weeks.</p></details>
+        <details><summary>Do you gift wrap?</summary><p>Brown paper, string and a handwritten card for S$3 a book.</p></details>
+      </div>
+      <div>
+        <h3>Shipping</h3>
+        <ul>
+          <li>Islandwide delivery S$4.50</li>
+          <li>Free over S$60</li>
+          <li>Arrives in 2–4 working days</li>
+          <li><a href="#faqs">International shipping</a></li>
+          <li><a href="#faqs">Track an order</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="#faqs">Ask a bookseller</a></li>
+          <li><a href="#bookshops">Find a bookshop</a></li>
+          <li><a href="#faqs">Schools &amp; bulk orders</a></li>
+          <li><a href="#faqs">Join the collective</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Policies</h3>
+        <ul>
+          <li><a href="#faqs">Returns &amp; exchanges</a></li>
+          <li><a href="#faqs">Privacy</a></li>
+          <li><a href="#faqs">Terms of sale</a></li>
+          <li><a href="#faqs">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="fine"><span class="hand">Read local. Read widely.</span><span>Design concept. Bookshops, titles and prices are illustrative.</span></div>
+  </div>
+</footer>
+
+<!-- CART -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-labelledby="dTitle" inert>
+  <div class="d-head">
+    <h2 id="dTitle">Your basket<small id="dCount"></small></h2>
+    <button class="icon-btn" id="dClose" aria-label="Close cart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="d-body" id="dBody"></div>
+  <div class="d-foot" id="dFoot"></div>
+</aside>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.500l4.500 4.500L19 7.500"/></svg></span>
+  <span class="tx"><b id="toastT">Added to cart</b><span id="toastS"></span></span>
+  <button id="toastBtn">View cart</button>
+</div>
+
+<script>
+/* ================= DATA ================= */
+const SHOPS = [
+  {n:"Kite & Kettle Books", w:"Tiong Bahru", d:"Literary fiction and very strong opinions about tea.", tone:"#1f4733"},
+  {n:"The Banyan Reader", w:"Joo Chiat", d:"Southeast Asian writing, from root to canopy.", tone:"#b5502c"},
+  {n:"月光书屋 Moonlight Book House", w:"Bras Basah", d:"Chinese-language literature, poetry and unhurried essays.", tone:"#34506b"},
+  {n:"Little Otter Books", w:"Katong", d:"Picture books, floor cushions and patient storytellers.", tone:"#c98a1e"},
+  {n:"Rumah Kata", w:"Kampong Gelam", d:"Malay-language books, zines and sastera old and new.", tone:"#7a3b4e"},
+  {n:"Margins", w:"Bukit Timah", d:"Philosophy, economics and arguments worth having.", tone:"#4c5a2e"},
+  {n:"Lantern & Ink", w:"Chinatown", d:"Crime, mystery and things that go bump on the last train.", tone:"#2c2f3a"},
+  {n:"Shophouse Poetry Room", w:"Jalan Besar", d:"Slim volumes, loud readings, one very small room.", tone:"#2f6f6a"}
+];
+const LANG = {en:{code:"en",label:"English"}, zh:{code:"zh-Hans",label:"中文"}, ms:{code:"ms",label:"Bahasa Melayu"}};
+const AGES = [
+  {k:"early", n:"Early Learning", s:"0–6"},
+  {k:"lower", n:"Lower Primary", s:"7–9"},
+  {k:"upper", n:"Upper Primary", s:"10–12"},
+  {k:"sec",   n:"Secondary", s:"13+"}
+];
+const FORMATS = ["Board Books","Picture Books","Chapter Books"];
+const GENRES = {
+  Fiction:["Literary Fiction","Mystery & Crime","Poetry","Sci-Fi & Fantasy","Historical Fiction","Short Stories","Graphic Novels"],
+  Nonfiction:["Economics","Philosophy","History","Memoir","Food & Cooking","Nature","Art & Design"]
+};
+const TAGS = {new:"New Releases", staff:"Staff Picks", top:"Top Rated", local:"Local Authors"};
+// palettes: [background, accent, ink]
+const PAL = [
+  ["#1f4733","#d9a441","#fdf8ea"],["#b5502c","#f3dfb4","#fff6e6"],["#e3b34c","#1f4733","#1c2a1d"],
+  ["#27405c","#e9a07e","#fdf3e3"],["#6b2f45","#e8c26a","#fdf1e0"],["#efe3c6","#b5502c","#22281f"],
+  ["#8fae93","#fdf8ea","#16301f"],["#2c2f3a","#d9573a","#f4eee0"],["#e9b9a3","#27405c","#27304a"],
+  ["#2f6f6a","#f2d58a","#f7f3e3"]
+];
+// t title, e English gloss, a author, p price, o old price, s shop, g genre, l lang,
+// tg tags, ed editions count, out sold out, c palette, v cover pattern, age/fmt for children, note/by for staff picks
+const BOOKS = [
+  {t:"The Salt Orchard", a:"Amira Lim", p:26.9, s:0, g:"Literary Fiction", tg:["new","staff"], c:0, v:0,
+   note:"Read it in one sitting on the evening ferry and missed my stop. Worth it.", by:"Jo, Kite & Kettle"},
+  {t:"Monsoon Arithmetic", a:"Daniel Koh Wei", p:24, s:1, g:"Literary Fiction", tg:["top","local"], ed:3, c:3, v:3},
+  {t:"雨季来信", e:"Letters from the Rainy Season", a:"陈雨桐", p:22.5, s:2, g:"Literary Fiction", l:"zh", tg:["new","staff"], c:8, v:1,
+   note:"写给所有等雨停的人。For anyone waiting out the rain.", by:"小慧, 月光书屋"},
+  {t:"Hikayat Lorong Sunyi", e:"Tales of the Quiet Lane", a:"Nurul Aisyah Rahman", p:21, s:4, g:"Short Stories", l:"ms", tg:["new","local","staff"], c:4, v:2,
+   note:"Sembilan cerita, satu lorong. Nine stories, one lane, and you'll want to move in.", by:"Kak Ida, Rumah Kata"},
+  {t:"The Last Void Deck", a:"R. Sivanesan", p:19.9, o:25.9, s:6, g:"Mystery & Crime", tg:["top"], c:7, v:5},
+  {t:"Murder at the Wet Market", a:"Evelyn Tan-Bright", p:23, s:6, g:"Mystery & Crime", tg:["new","staff"], c:1, v:4,
+   note:"The fishmonger did not do it. That is all I will say. Clear your Sunday.", by:"Ravi, Lantern & Ink"},
+  {t:"A Quiet Country of Kites", a:"Hui Min Ong", p:18, s:7, g:"Poetry", tg:["local","top","staff"], c:5, v:5,
+   note:"I keep three copies under the till because I keep giving mine away.", by:"Sam, Poetry Room"},
+  {t:"岛屿的十四行", e:"Island Sonnets", a:"林子安", p:20, s:2, g:"Poetry", l:"zh", tg:["local"], out:true, c:9, v:0},
+  {t:"Pantun untuk Hujan", e:"Pantun for the Rain", a:"Faizal Osman", p:17.5, s:4, g:"Poetry", l:"ms", tg:["top","new"], c:6, v:3},
+  {t:"The Cartographer of Small Hours", a:"Isla Fernandez", p:28, s:0, g:"Sci-Fi & Fantasy", tg:["new"], ed:2, c:3, v:4},
+  {t:"Tigers Under the Causeway", a:"Marcus Teo", p:25, s:1, g:"Historical Fiction", tg:["top","local"], c:2, v:1},
+  {t:"Kopi-O at the End of the World", a:"Sharmila Dass", p:22, o:27, s:0, g:"Sci-Fi & Fantasy", tg:["top"], c:4, v:0},
+  {t:"Five Foot Way", a:"Jun & Kai Loh", p:32, s:1, g:"Graphic Novels", tg:["new","local"], c:1, v:2},
+  {t:"The Hawker's Ledger", e:"An economics of small things", a:"Tan Wei Jie", p:34, s:5, g:"Economics", tg:["top","staff"], c:5, v:4,
+   note:"Finally, an economics book that understands why the queue is the review.", by:"Mei, Margins"},
+  {t:"Who Pays for the Rain?", a:"Anjali Menon", p:29.9, s:5, g:"Economics", tg:["new"], ed:2, c:3, v:1},
+  {t:"The Slow Argument", a:"Benedict Yeo", p:27, s:5, g:"Philosophy", tg:["top"], c:0, v:2},
+  {t:"慢慢想", e:"Thinking Slowly: twelve everyday philosophy talks", a:"周明远", p:24, s:2, g:"Philosophy", l:"zh", tg:["new"], c:2, v:5},
+  {t:"Sambal Days", e:"Recipes from a Kampong Gelam kitchen", a:"Zainab Hamid", p:38, o:45, s:4, g:"Food & Cooking", tg:["top","local"], c:1, v:0},
+  {t:"Mangrove Hours", a:"Clara D'Souza", p:31, s:1, g:"Nature", tg:["new","local","staff"], c:6, v:1,
+   note:"Made me cycle to the mudflats at 6am. Never thought I'd write that.", by:"Wen, The Banyan Reader"},
+  {t:"My Mother's Sewing Tin", a:"Lee Siew Lan", p:23.9, s:0, g:"Memoir", tg:["local","top"], c:8, v:2},
+  {t:"Shophouse: A Field Guide", a:"Arif Iskandar", p:42, s:1, g:"Art & Design", tg:["top"], out:true, c:9, v:4},
+  {t:"Before the Reclaimed Land", a:"Helen Chua", p:36, s:5, g:"History", tg:["top"], ed:2, c:7, v:3},
+  {t:"Kampung ke Kota", e:"From Village to City", a:"Hafiz Salleh", p:26, s:4, g:"History", l:"ms", tg:["local"], c:0, v:5},
+  // children's
+  {t:"Otter Counts to Ten", a:"Bea Lim", p:14.9, s:3, kid:true, age:"early", fmt:"Board Books", tg:["new","top"], c:9, v:4},
+  {t:"小熊猫的灯笼", e:"Little Red Panda's Lantern", a:"王小满", p:16.9, s:3, kid:true, age:"early", fmt:"Picture Books", l:"zh", tg:["new"], c:1, v:0},
+  {t:"Si Kancil dan Bulan", e:"The Mousedeer and the Moon", a:"Siti Mariam", p:15.9, s:4, kid:true, age:"lower", fmt:"Picture Books", l:"ms", tg:["top","local"], c:3, v:0},
+  {t:"The Durian Who Wanted to Be a Mango", a:"Tessa Ng", p:17.9, s:3, kid:true, age:"early", fmt:"Picture Books", tg:["top","local","staff"], c:2, v:2,
+   note:"Read aloud 41 times at story hour. The children still gasp at page nine.", by:"Auntie Pei, Little Otter"},
+  {t:"Detective Mynah and the Missing Kueh", a:"Rohan Pillai", p:13.9, s:6, kid:true, age:"lower", fmt:"Chapter Books", tg:["new","local"], ed:4, c:4, v:4},
+  {t:"The MRT at Midnight", a:"Grace Oh", p:15.5, s:3, kid:true, age:"upper", fmt:"Chapter Books", tg:["top"], c:7, v:1},
+  {t:"Good Night, Void Deck", a:"Bea Lim", p:12.9, o:15.9, s:3, kid:true, age:"early", fmt:"Board Books", tg:[], c:3, v:5},
+  {t:"The Girl Who Mapped the Monsoon", a:"Aditi Rao", p:19.9, s:0, kid:true, age:"sec", fmt:"Chapter Books", tg:["new"], c:6, v:3},
+  {t:"我们的组屋", e:"Our HDB Home", a:"李家宝", p:16, s:2, kid:true, age:"lower", fmt:"Picture Books", l:"zh", tg:[], out:true, c:5, v:1},
+  {t:"Rimba Rahsia", e:"The Secret Jungle", a:"Amirul Hakim", p:14.5, s:4, kid:true, age:"upper", fmt:"Chapter Books", l:"ms", tg:["local"], c:0, v:3},
+  {t:"Counting Tides", e:"Poems for restless teenagers", a:"Hui Min Ong", p:16.5, s:7, kid:true, age:"sec", fmt:"Chapter Books", tg:["local"], c:8, v:5}
+].map((b,i)=>({l:"en",tg:[],...b,id:i}));
+
+/* ================= HELPERS ================= */
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const esc = s => String(s).replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const money = n => "S$" + n.toFixed(2);
+const PLUS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>';
+const ARROW = d => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d<0?'M15 5l-7 7 7 7':'M9 5l7 7-7 7'}"/></svg>`;
+
+function cover(b){
+  const [bg,ac,ink] = PAL[b.c];
+  return `<div class="cover p${b.v}" style="--bg:${bg};--ac:${ac};--ink2:${ink}" aria-hidden="true"><span class="cv-t" lang="${LANG[b.l].code}">${esc(b.t)}</span><span class="cv-a">${esc(b.a)}</span></div>`;
+}
+function badges(b){
+  let h = '<div class="badges">';
+  if(b.out) h += '<span class="badge b-out">Sold out</span>';
+  else if(b.o) h += '<span class="badge b-sale">Sale</span>';
+  if(b.ed) h += `<span class="badge b-ed">${b.ed} editions</span>`;
+  h += '</div>';
+  if(b.l!=="en") h += `<span class="badge b-lang" lang="${LANG[b.l].code}">${LANG[b.l].label}</span>`;
+  return h;
+}
+function priceHTML(b){
+  if(b.ed) return `<span class="price"><span class="from">From ${money(b.p)}</span></span>`;
+  if(b.o) return `<span class="price"><s><span class="sr">Was </span>${money(b.o)}</s><span class="now">${money(b.p)}</span></span>`;
+  return `<span class="price">${money(b.p)}</span>`;
+}
+function addBtn(b, label){
+  return b.out
+    ? `<button class="add" disabled>Sold out</button>`
+    : `<button class="add" data-add="${b.id}" aria-label="Add ${esc(b.t)} to cart">${PLUS}${label||"Add"}</button>`;
+}
+function card(b){
+  return `<article class="card${b.out?" is-out":""}">
+    <div class="cover-wrap">${badges(b)}${cover(b)}</div>
+    <div class="meta">
+      <h3 class="title" lang="${LANG[b.l].code}">${esc(b.t)}</h3>
+      ${b.e?`<p class="gloss">${esc(b.e)}</p>`:""}
+      <p class="author" lang="${LANG[b.l].code}">${esc(b.a)}</p>
+      <p class="shop-tag">from <button data-shop="${b.s}">${esc(SHOPS[b.s].n)}</button></p>
+      <div class="buy">${priceHTML(b)}${addBtn(b)}</div>
+    </div></article>`;
+}
+function pick(b){
+  return `<article class="pick${b.out?" is-out":""}">
+    <div class="pc">${badges(b)}${cover(b)}</div>
+    <div class="body">
+      <h3 class="title" lang="${LANG[b.l].code}">${esc(b.t)}</h3>
+      ${b.e?`<p class="gloss">${esc(b.e)}</p>`:""}
+      <p class="author">${esc(b.a)}</p>
+      <div class="note"><span class="note-label">Booksellers' note</span><p>“${esc(b.note)}”</p><span class="sig">— ${esc(b.by)}</span></div>
+      <div class="buy">${priceHTML(b)}${addBtn(b,"Add to cart")}</div>
+    </div></article>`;
+}
+const emptyHTML = (a,b) => `<div class="empty"><span>${a}</span>${b}</div>`;
+
+/* ================= STATIC RENDER ================= */
+$("#heroStack").innerHTML = [BOOKS[10],BOOKS[0],BOOKS[13]].map(cover).join("") +
+  `<div class="sticky-note">every book here was picked by a human</div>
+   <svg class="doodle" viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M32 6l5 15 16 1-13 10 5 16-13-9-13 9 5-16L11 22l16-1z"/></svg>`;
+
+const byTag = t => BOOKS.filter(b=>b.tg.includes(t));
+$("#t-new").innerHTML = byTag("new").map(card).join("");
+$("#t-staff").innerHTML = byTag("staff").map(pick).join("");
+$("#t-top").innerHTML = byTag("top").map(card).join("");
+$("#t-local").innerHTML = byTag("local").map(card).join("");
+
+$("#shops").innerHTML = SHOPS.map((s,i)=>{
+  const n = BOOKS.filter(b=>b.s===i).length;
+  const latin = s.n.replace(/^[^\x00-\x7F]+\s*/,"");
+  return `<article class="shop" style="--tone:${s.tone}">
+    <div class="sign"><span class="mono" aria-hidden="true">${esc(latin.replace(/^The /,"")[0])}</span>
+      <div><h3>${esc(s.n)}</h3><span class="where">${esc(s.w)}</span></div></div>
+    <p class="persona">${esc(s.d)}</p>
+    <div class="foot"><span class="n">${n} titles featured</span>
+      <button class="visit" data-shop="${i}" aria-label="Visit the shelf of ${esc(s.n)}">Visit shelf ${ARROW(1)}</button></div>
+  </article>`;
+}).join("");
+
+$("#genreGroups").innerHTML = Object.entries(GENRES).map(([grp,list])=>`
+  <div class="g-group"><h3>${grp}</h3><div class="g-grid">${list.map(g=>{
+    const n = BOOKS.filter(b=>b.g===g).length;
+    return `<button class="g-tile" data-genre="${esc(g)}" aria-pressed="false"><b>${esc(g)}</b><small>${n} ${n===1?"title":"titles"}</small></button>`;
+  }).join("")}</div></div>`).join("");
+
+/* ================= SHELF (search + category filtering) ================= */
+const state = {q:"", shop:null, genre:null, tag:null, lang:null, kid:false, age:null, fmt:null, sort:"featured"};
+const norm = s => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g,"");
+function matchQ(b,q){
+  if(!q) return true;
+  const hay = norm([b.t,b.e||"",b.a,SHOPS[b.s].n,b.g||"Children's "+b.fmt,LANG[b.l].label].join(" "));
+  return norm(q).split(/\s+/).filter(Boolean).every(w=>hay.includes(w));
+}
+function filtered(){
+  let r = BOOKS.filter(b =>
+    matchQ(b,state.q) &&
+    (state.shop===null || b.s===state.shop) &&
+    (!state.genre || b.g===state.genre) &&
+    (!state.tag || b.tg.includes(state.tag)) &&
+    (!state.lang || b.l===state.lang) &&
+    (!state.kid || b.kid) &&
+    (!state.age || b.age===state.age) &&
+    (!state.fmt || b.fmt===state.fmt));
+  if(state.sort==="low") r.sort((a,b)=>a.p-b.p);
+  if(state.sort==="high") r.sort((a,b)=>b.p-a.p);
+  if(state.sort==="az") r.sort((a,b)=>a.t.localeCompare(b.t));
+  return r;
+}
+function renderShelf(){
+  const r = filtered();
+  $("#grid").innerHTML = r.length ? r.map(card).join("")
+    : `<div style="grid-column:1/-1">${emptyHTML("Nothing on this shelf… yet.","Try fewer filters, or ask a bookseller to order it in.")}</div>`;
+  $("#shelfCount").textContent = `${r.length} ${r.length===1?"book":"books"}`;
+  $("#shelfTitle").textContent =
+    state.shop!==null ? SHOPS[state.shop].n.replace(/^[^\x00-\x7F]+\s*/,"") + "'s shelf" :
+    state.genre ? state.genre : state.tag ? TAGS[state.tag] :
+    state.kid ? "Children's books" : state.q ? "Search results" : "The whole shelf";
+  // active filter tags
+  const tags = [];
+  const add = (key,label)=>tags.push(`<span class="tag">${esc(label)}<button data-clear="${key}" aria-label="Remove filter: ${esc(label)}">×</button></span>`);
+  if(state.q) add("q",`“${state.q}”`);
+  if(state.shop!==null) add("shop",SHOPS[state.shop].n);
+  if(state.genre) add("genre",state.genre);
+  if(state.tag) add("tag",TAGS[state.tag]);
+  if(state.kid && !state.age && !state.fmt) add("kid","Children's");
+  if(state.age) add("age",AGES.find(a=>a.k===state.age).n);
+  if(state.fmt) add("fmt",state.fmt);
+  if(tags.length>1) tags.push(`<button class="link" data-clear="all">Clear all</button>`);
+  $("#active").innerHTML = tags.join("");
+  $$(".g-tile").forEach(t=>t.setAttribute("aria-pressed", t.dataset.genre===state.genre));
+  $$("#langChips .chip").forEach(c=>c.setAttribute("aria-pressed", (c.dataset.lang||null)===state.lang));
+}
+function resetFilters(keep={}){
+  Object.assign(state,{q:"",shop:null,genre:null,tag:null,kid:false,age:null,fmt:null},keep);
+  if(!state.q){ $("#q").value=""; $("#qClear").classList.remove("on"); }
+}
+const goShelf = () => $("#shelf").scrollIntoView({behavior:"smooth",block:"start"});
+
+$("#langChips").innerHTML = [["","All"],["en","English"],["zh","中文"],["ms","Bahasa Melayu"]]
+  .map(([k,n])=>`<button class="chip" data-lang="${k}" aria-pressed="${k===""}">${n}</button>`).join("");
+$("#sort").addEventListener("change",e=>{state.sort=e.target.value;renderShelf();});
+
+/* ================= CHILDREN ================= */
+const kids = {age:null, fmt:null};
+function renderKids(){
+  $("#ageChips").innerHTML = `<button class="chip" data-age="" aria-pressed="${!kids.age}">All ages</button>` +
+    AGES.map(a=>`<button class="chip" data-age="${a.k}" aria-pressed="${kids.age===a.k}">${a.n} <small>${a.s}</small></button>`).join("");
+  $("#fmtChips").innerHTML = `<button class="chip" data-fmt="" aria-pressed="${!kids.fmt}">All formats</button>` +
+    FORMATS.map(f=>`<button class="chip" data-fmt="${f}" aria-pressed="${kids.fmt===f}">${f}</button>`).join("");
+  const r = BOOKS.filter(b=>b.kid && (!kids.age||b.age===kids.age) && (!kids.fmt||b.fmt===kids.fmt));
+  const t = $("#t-kids");
+  t.innerHTML = r.length ? r.map(card).join("") : emptyHTML("No books here just yet.","Try another age or format. Board books grow up fast.");
+  t.scrollLeft = 0;
+  $("#kidsCount").textContent = `${r.length} ${r.length===1?"book":"books"} for this pick`;
+  updatePagers();
+}
+
+/* ================= CAROUSEL PAGING ================= */
+function updatePagers(){
+  $$(".pager").forEach(p=>{
+    const t = document.getElementById(p.dataset.for);
+    const [prev,next] = p.children;
+    const max = t.scrollWidth - t.clientWidth - 2;
+    prev.disabled = t.scrollLeft <= 2;
+    next.disabled = t.scrollLeft >= max;
+  });
+}
+$$(".pager").forEach(p=>{
+  const t = document.getElementById(p.dataset.for);
+  const name = t.getAttribute("aria-label");
+  p.innerHTML = `<button aria-label="Previous ${name}">${ARROW(-1)}</button><button aria-label="Next ${name}">${ARROW(1)}</button>`;
+  p.children[0].onclick = ()=>t.scrollBy({left:-t.clientWidth*.85,behavior:"smooth"});
+  p.children[1].onclick = ()=>t.scrollBy({left: t.clientWidth*.85,behavior:"smooth"});
+  t.addEventListener("scroll",()=>requestAnimationFrame(updatePagers),{passive:true});
+});
+addEventListener("resize",updatePagers);
+
+/* ================= SEARCH ================= */
+const q = $("#q"), sug = $("#suggest");
+function closeSuggest(){ sug.classList.remove("on"); q.setAttribute("aria-expanded","false"); }
+function renderSuggest(){
+  const v = q.value.trim();
+  $("#qClear").classList.toggle("on", !!q.value);
+  if(!v){ closeSuggest(); return; }
+  const books = BOOKS.filter(b=>matchQ(b,v));
+  const shops = SHOPS.map((s,i)=>({...s,i})).filter(s=>norm(s.n+" "+s.w).includes(norm(v)));
+  let h = "";
+  if(!books.length && !shops.length){
+    h = `<div class="sg-none"><span>Hmm, not on our shelves.</span>No match for “${esc(v)}”. Try an author, a bookshop or a genre.</div>`;
+  } else {
+    if(shops.length) h += `<h4>Bookshops</h4>` + shops.slice(0,3).map(s=>
+      `<button class="sg sg-shop" data-shop="${s.i}"><i style="background:${s.tone}" aria-hidden="true">${esc(s.n.replace(/^[^\x00-\x7F]+\s*/,"").replace(/^The /,"")[0])}</i><span><b>${esc(s.n)}</b><small>${esc(s.w)} · visit shelf</small></span></button>`).join("");
+    if(books.length) h += `<h4>Books</h4>` + books.slice(0,5).map(b=>
+      `<button class="sg" data-pick="${b.id}">${cover(b)}<span><b lang="${LANG[b.l].code}">${esc(b.t)}</b><small>${esc(b.a)}${b.e?" · "+esc(b.e):""}</small></span><span class="p">${b.ed?"From ":""}${money(b.p)}</span></button>`).join("");
+    if(books.length) h += `<button class="sg sg-all" data-seeall>See all ${books.length} ${books.length===1?"result":"results"} on the shelf</button>`;
+  }
+  sug.innerHTML = h; sug.classList.add("on"); q.setAttribute("aria-expanded","true");
+}
+function applySearch(v, scroll){
+  resetFilters({q:v.trim()});
+  renderShelf();
+  if(scroll){ closeSuggest(); q.blur(); goShelf(); }
+}
+q.addEventListener("input",()=>{ renderSuggest(); applySearch(q.value,false); });
+q.addEventListener("focus",renderSuggest);
+q.addEventListener("keydown",e=>{
+  if(e.key==="Enter"){ e.preventDefault(); applySearch(q.value,true); }
+  if(e.key==="Escape") closeSuggest();
+});
+$("#qClear").onclick = ()=>{ q.value=""; renderSuggest(); applySearch("",false); q.focus(); };
+document.addEventListener("click",e=>{ if(!e.target.closest(".search")) closeSuggest(); });
+
+/* ================= CART ================= */
+const cart = new Map(); let lastFocus = null, toastTimer;
+const FREE = 60;
+function cartCount(){ let n=0; cart.forEach(v=>n+=v); return n; }
+function renderCart(){
+  const n = cartCount(), c = $("#count");
+  c.textContent = n; c.classList.toggle("on", n>0);
+  $("#cartBtn").setAttribute("aria-label", `Open cart, ${n} ${n===1?"item":"items"}`);
+  $("#dCount").textContent = n ? `${n} ${n===1?"book":"books"}` : "";
+  if(!n){
+    $("#dBody").innerHTML = `<div class="d-empty"><span>An empty basket!</span>That's a lot of room for books.</div>`;
+    $("#dFoot").innerHTML = `<button class="btn btn-primary" data-close-browse>Browse the shelf</button>`;
+    return;
+  }
+  const groups = new Map(); let sub = 0;
+  cart.forEach((qty,id)=>{ const b=BOOKS[id]; sub += b.p*qty; if(!groups.has(b.s)) groups.set(b.s,[]); groups.get(b.s).push([b,qty]); });
+  $("#dBody").innerHTML = [...groups].map(([s,items])=>
+    `<div class="d-shop">Packed by ${esc(SHOPS[s].n)}</div>` + items.map(([b,qty])=>`
+      <div class="line">${cover(b)}
+        <div><b lang="${LANG[b.l].code}">${esc(b.t)}</b><small>${esc(b.a)}${b.ed?" · Paperback":""}</small>
+          <div><span class="qty"><button data-dec="${b.id}" aria-label="Decrease quantity of ${esc(b.t)}">−</button><span>${qty}</span><button data-inc="${b.id}" aria-label="Increase quantity of ${esc(b.t)}">+</button></span><button class="rm" data-rm="${b.id}">Remove</button></div>
+        </div>
+        <span class="lp">${money(b.p*qty)}</span>
+      </div>`).join("")).join("");
+  const left = FREE - sub;
+  $("#dFoot").innerHTML = `
+    <div class="ship">${left>0 ? `You're <b>${money(left)}</b> away from free delivery` : `<b>Free delivery unlocked.</b> Nicely done.`}
+      <div class="bar"><i style="width:${Math.min(100,sub/FREE*100)}%"></i></div></div>
+    <div class="sub"><span>Subtotal</span><b>${money(sub)}</b></div>
+    <button class="btn btn-primary" data-checkout>Checkout</button>
+    <p class="tiny">${groups.size>1?`Arrives as ${groups.size} parcels, one from each bookshop.`:"Packed by hand at the bookshop."}</p>`;
+}
+function openCart(){
+  lastFocus = document.activeElement;
+  const d = $("#drawer"); d.inert = false; d.classList.add("on"); $("#scrim").classList.add("on");
+  document.body.style.overflow = "hidden"; hideToast();
+  setTimeout(()=>$("#dClose").focus(), 60);
+}
+function closeCart(){
+  const d = $("#drawer"); d.classList.remove("on"); d.inert = true; $("#scrim").classList.remove("on");
+  document.body.style.overflow = "";
+  if(lastFocus && lastFocus.focus) lastFocus.focus();
+}
+function toast(title, sub, showBtn=true){
+  $("#toastT").textContent = title; $("#toastS").textContent = sub;
+  $("#toastBtn").style.display = showBtn ? "" : "none";
+  $("#toast").classList.add("on");
+  clearTimeout(toastTimer); toastTimer = setTimeout(hideToast, 3200);
+}
+function hideToast(){ $("#toast").classList.remove("on"); }
+function addToCart(id){
+  cart.set(id,(cart.get(id)||0)+1); renderCart();
+  const b = BOOKS[id];
+  toast("Added to cart", `${b.t} · ${SHOPS[b.s].n}`);
+}
+$("#cartBtn").onclick = openCart;
+$("#dClose").onclick = closeCart;
+$("#scrim").onclick = closeCart;
+$("#toastBtn").onclick = openCart;
+$("#loginBtn").onclick = ()=>toast("Log in","Accounts aren't part of this concept yet.",false);
+addEventListener("keydown",e=>{ if(e.key==="Escape" && $("#drawer").classList.contains("on")) closeCart(); });
+
+/* ================= DELEGATED CLICKS ================= */
+document.addEventListener("click",e=>{
+  const el = e.target.closest("[data-add],[data-shop],[data-genre],[data-tag],[data-lang],[data-age],[data-fmt],[data-clear],[data-reset],[data-pick],[data-seeall],[data-inc],[data-dec],[data-rm],[data-checkout],[data-close-browse],#kidsAll");
+  if(!el) return;
+  const d = el.dataset;
+  if("add" in d) return addToCart(+d.add);
+  if("inc" in d){ cart.set(+d.inc,cart.get(+d.inc)+1); return renderCart(); }
+  if("dec" in d){ const v=cart.get(+d.dec)-1; v>0?cart.set(+d.dec,v):cart.delete(+d.dec); return renderCart(); }
+  if("rm" in d){ cart.delete(+d.rm); return renderCart(); }
+  if("checkout" in d){ closeCart(); return toast("Almost there","Checkout isn't wired up in this concept.",false); }
+  if("closeBrowse" in d){ closeCart(); resetFilters(); renderShelf(); return goShelf(); }
+  if("shop" in d){
+    if($("#drawer").classList.contains("on")) closeCart();
+    resetFilters({shop:+d.shop}); closeSuggest(); renderShelf(); return goShelf();
+  }
+  if("genre" in d){
+    const g = state.genre===d.genre ? null : d.genre;
+    resetFilters({genre:g}); renderShelf(); return goShelf();
+  }
+  if("tag" in d){ e.preventDefault(); resetFilters({tag:d.tag}); renderShelf(); return goShelf(); }
+  if("lang" in d){ state.lang = d.lang||null; return renderShelf(); }
+  if("age" in d){ kids.age = d.age||null; return renderKids(); }
+  if("fmt" in d){ kids.fmt = d.fmt||null; return renderKids(); }
+  if("reset" in d){ e.preventDefault(); resetFilters(); state.lang=null; renderShelf(); return goShelf(); }
+  if("pick" in d){ const b=BOOKS[+d.pick]; q.value=b.t; $("#qClear").classList.add("on"); return applySearch(b.t,true); }
+  if("seeall" in d) return applySearch(q.value,true);
+  if("clear" in d){
+    if(d.clear==="all") resetFilters();
+    else if(d.clear==="q"){ state.q=""; q.value=""; $("#qClear").classList.remove("on"); }
+    else if(d.clear==="kid") state.kid=false;
+    else { state[d.clear]=null; if(d.clear==="age"||d.clear==="fmt") state.kid = !!(state.age||state.fmt); }
+    return renderShelf();
+  }
+  if(el.id==="kidsAll"){ e.preventDefault(); resetFilters({kid:true,age:kids.age,fmt:kids.fmt}); renderShelf(); return goShelf(); }
+});
+
+/* ================= NEWSLETTER ================= */
+$("#nl").addEventListener("submit",e=>{
+  e.preventDefault();
+  const f = e.target, msg = $("#nlMsg"), email = $("#email").value.trim();
+  const picks = ["lists","letters","events"].filter(n=>f[n].checked);
+  msg.className = "form-msg err";
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent = "That email doesn't look quite right. Mind checking it?"; $("#email").focus(); return; }
+  if(!picks.length){ msg.textContent = "Pick at least one thing you'd like us to send."; return; }
+  msg.className = "form-msg ok";
+  msg.textContent = "You're on the list. First letter goes out soon!";
+  f.reset();
+});
+
+/* ================= INIT ================= */
+renderShelf(); renderKids(); renderCart(); updatePagers();
+addEventListener("load",updatePagers);
+</script>
+</body>
+</html>
